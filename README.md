@@ -13,6 +13,8 @@ Początkowym zamysłem było utworzenie do programu wizualizatora algorytmu, lec
 Pierwszym etapem wykonania zadania było zmapowanie dróg do słowników. Do każdego węzła przypisałem numer, 
 za pomocą którego możliwa była identyfikacja miejsc na drodze (obraz).
 
+![Graf](/images/graf.jpeg)
+
 Następnie stworzyłem drugi słownik przyporządkowujący każdemu odcinkowi kolor drogi.
 
 Ostatnim etapem było zaimplementowanie algorytmu Dijkstry w celu odnalezienia najkrótszej (w tym przypadku najtańszej) 
