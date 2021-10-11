@@ -1,3 +1,5 @@
+import math
+
 def okreslCene(ceny, kolory, indeks):
     kolor = kolory[indeks]
     if kolor == 'r':
@@ -9,9 +11,38 @@ def okreslCene(ceny, kolory, indeks):
 
 def dijkstra(ceny, n, kolejka, kolory, krawedzie):
     cena = 0
+    koszta = {}
     for i in range(n-1):
+        sprawdzony = []
+        niesprawdzone = [k for k in krawedzie.keys()]
         start = kolejka[i]
         koniec = kolejka[i+1]
+        for k, v in krawedzie.items():
+            koszta[k] = math.inf
+        koszta[start] = 0
+        while niesprawdzone:
+            min = math.inf
+            for k in koszta.keys():
+                if koszta[k] < min and k in niesprawdzone:
+                    min = koszta[k]
+                    aktualny = k
+
+            niesprawdzone.remove(aktualny)
+            sprawdzony.append(aktualny)
+
+            for sasiad in krawedzie[aktualny]:
+                odleglosc = okreslCene(ceny, kolory, (aktualny, sasiad))
+                if sasiad not in sprawdzony:
+                    stara_cena = koszta[sasiad]
+                    nowa_cena = koszta[aktualny] + odleglosc
+                    if nowa_cena < stara_cena:
+                        koszta[sasiad] = nowa_cena
+
+        cena += koszta[koniec]
+
+
+
+
 
     return cena
 
@@ -33,7 +64,8 @@ def main():
         (1, 9): 'g', (9, 1): 'g', (9, 8): 'g', (8, 9): 'g',
         (6, 8): 'r', (8, 6): 'r', (9, 11): 'b', (11, 9): 'b',
         (7, 8): 'g', (8, 7): 'g', (6, 7): 'b', (7, 6): 'b',
-        (7, 'C'): 'g', ('C', 7): 'g', (11, 'C'): 'r', ('C', 11): 'r'
+        (7, 'C'): 'g', ('C', 7): 'g', (11, 'C'): 'r', ('C', 11): 'r',
+        (4, 8): 'g', (8, 4): 'g'
     }
     ceny = [float(cena) for cena in str(input("Wprowadz ceny przejazdów po różnych kolorach dróg: ")).split()]
     n = int(input("Wprowadz ilosc odwiedzonych hangarów: "))
