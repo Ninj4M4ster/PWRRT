@@ -42,10 +42,6 @@ def dijkstra(ceny, n, kolejka, kolory, krawedzie):
 
         cena += koszta[koniec]
 
-
-
-
-
     return cena
 
 
